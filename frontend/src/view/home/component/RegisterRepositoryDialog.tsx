@@ -32,6 +32,7 @@ const S = {
         display: flex;
         flex-direction: column;
         ${dialogContentStyle};
+        width: 960px;
     `,
     header: styled.div`
         display: flex;

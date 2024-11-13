@@ -1,4 +1,5 @@
 import {css} from "styled-components";
+import {popupAnimationStyle} from "./animation/popup.animation";
 
 const DialogContentStyle = css`
     background: var(--surface);
@@ -10,14 +11,7 @@ const DialogContentStyle = css`
 
     // style
     border-radius: 16px;
+    ${popupAnimationStyle};
 `
 
 export default DialogContentStyle;
-
-/**
- *
- *
- *     // @media screen and (max-width: ${Guideline.Mobile}px) {
- *     //     padding: 12px 16px;
- *     // }
- */

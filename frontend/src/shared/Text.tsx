@@ -18,30 +18,30 @@ const textSizeValues: { [key in TextSize]: number } = {
 
 interface TextProps {
     size: TextSize;
-    color?: CSSProperties['color'];
+    // color?: CSSProperties['color'];
     text: string;
     fontWeight?: CSSProperties['fontWeight'];
     customStyle?: RuleSet;
 }
 
 const Container = styled.span<{
-    customStyle?: RuleSet
+    $customStyle?: RuleSet
 }>`
-    ${({customStyle}) => customStyle}
+    ${({$customStyle}) => $customStyle}
 `
 
 export default function Text(
     {
         size,
-        color,
+        // color,
         text,
         fontWeight,
         customStyle
     }: TextProps
 ) {
-    return <Container customStyle={customStyle} style={{
+    return <Container $customStyle={customStyle} style={{
         fontSize: textSizeValues[size],
-        color,
+        // color,
         display: 'flex',
         fontWeight: fontWeight,
     }}>

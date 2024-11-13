@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, {useEffect, useRef} from "react";
-import {fadeInAnimationStyle} from "./fade.animation";
+import {fadeInAnimationStyle} from "./animation/fade.animation";
 
 interface BaseDialogProps {
     children: React.ReactNode;
@@ -44,7 +44,8 @@ const S = {
         border: none;
         outline: none;
         background: none;
-    `, 
+        ${fadeInAnimationStyle};
+    `,
     backdrop: styled.div`
         top: 0;
         right: 0;

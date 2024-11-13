@@ -10,7 +10,7 @@ export const fadeInAnimation = keyframes`
 `;
 
 export const fadeInAnimationStyle = css`
-    animation: fadein 0.2s;
+    animation: ${fadeInAnimation} 0.2s;
 `;
 
 export const fadeOutAnimation = keyframes`
@@ -24,5 +24,5 @@ export const fadeOutAnimation = keyframes`
 `;
 
 export const fadeOutAnimationStyle = css`
-    animation: fadeout 0.2s;
-`
+    animation: ${fadeOutAnimation} 0.2s;
+`;
