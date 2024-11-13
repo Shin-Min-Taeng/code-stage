@@ -1,0 +1,26 @@
+@import url("https://font.elice.io/css?family=Elice+Digital+Baeum");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Elice DX Neolli OTF", sans-serif !important;
+}
+
+:root {
+    --primary: #6400F0;
+    --on-primary: #FDFDFD;
+
+    --secondary: #0094F0;
+    --secondary-opa-35: rgba(0, 148, 240, 0.35);
+    --on-secondary: #FBFDFF;
+    
+    --surface: #FCFCFC;
+    --on-surface: #221E28;
+    --on-surface-var: #534C5D;
+    
+    --container-low: #F2F1F3;
+    --container: #EAE8EC;
+    --container-high: #E3E1E6;
+}
+
