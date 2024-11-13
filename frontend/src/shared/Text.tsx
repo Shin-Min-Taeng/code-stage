@@ -18,7 +18,7 @@ const textSizeValues: { [key in TextSize]: number } = {
 
 interface TextProps {
     size: TextSize;
-    color?: string;
+    color?: CSSProperties['color'];
     text: string;
     fontWeight?: CSSProperties['fontWeight'];
     customStyle?: RuleSet;

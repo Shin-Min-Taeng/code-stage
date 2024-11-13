@@ -97,29 +97,28 @@ const dummyCode = 'import SwiftUI\n' +
     '            }\n' +
     '        )\n' +
     '    }\n' +
-    '}'; 
+    '}';
 
 export default function CodeStagePage() {
     const [comment, setComment] = useState('');
 
     return (
         <S.root>
-            <Editor
-                options={{
-                    minimap: {
-                        enabled: false
-                    }
-                }}
-                height={'100%'}
-                width={'100%'}
-                defaultLanguage={'swift'}
-                defaultValue={dummyCode}
-                theme={'vs-dark'}
-            />
+            <S.editorWrapper>
+                <Editor
+                    height={'100%'}
+                    width={'calc(100vw - 480px)'}
+                    defaultLanguage={'swift'}
+                    defaultValue={dummyCode}
+                    theme={'vs-dark'}
+                />
+            </S.editorWrapper>
             <S.sidebarContainer>
-                <S.title>
-                    <Text size={TextSize.Large} fontWeight={'bold'} text={'의견 남기기'}/>
-                </S.title>
+                <div style={{
+                    padding: 4
+                }}>
+                    <Text size={TextSize.Large} text={'코드 리뷰'}/>
+                </div>
                 <Spacer h={10}/>
                 <S.commentContainer>
                     {dummyComments.map(comment => (
@@ -128,7 +127,7 @@ export default function CodeStagePage() {
                 </S.commentContainer>
                 <div style={{
                     display: 'flex',
-                    backgroundColor: '#262627'
+                    backgroundColor: 'var(--surface)'
                 }}>
                     <S.input value={comment} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
                         setComment(event.target.value);

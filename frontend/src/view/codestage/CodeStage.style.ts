@@ -6,17 +6,18 @@ const style = {
         display: flex;
         height: 100vh;
         width: 100vw;
+        word-break: keep-all;
+    `,
+    editorWrapper: styled.div`
+        display: flex;
+        flex: 1;
     `,
     sidebarContainer: styled.div`
         display: flex;
         flex-direction: column;
-        background: #1d1d1e;
+        background: var(--surface);
         color: white;
         width: 480px;
-    `,
-    title: styled.div`
-        //pl-4 pt-4 pb-4
-        padding: 4px;
     `,
     commentContainer: styled.li`
         display: flex;
@@ -29,8 +30,8 @@ const style = {
     comment: styled.ul`
         display: flex;
         font-size: 16px;
-        color: white;
-        background: #262627;
+        color: var(--on-surface);
+        background: var(--container);
         padding: 12px;
         border-radius: 12px;
     `,
