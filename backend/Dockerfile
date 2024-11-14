@@ -1,7 +1,7 @@
 FROM python:3.9-alpine
 
 # 필요한 패키지 설치
-RUN apk add --no-cache git
+RUN apk add --no-cache git tree
 
 # ARG로 GitHub 리포지토리 URL을 받을 준비
 ARG GITHUB_REPOSITORY_URL

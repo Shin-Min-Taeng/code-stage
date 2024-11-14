@@ -25,15 +25,27 @@ export class GithubService {
   ): Promise<BaseResponse> {
     const githubRepository: GithubRepositoryEntity =
       await this.githubRepositoryRepository.getById(repositoryId);
-    const docker_unique = `image_${githubRepository.id}`;
     const buildCommand = `docker build \
   --build-arg GITHUB_REPOSITORY_URL=${githubRepository.url} \
   --build-arg FILE_PATH=${path} \
   --build-arg BRANCH=${branch} \
-  -t ${docker_unique} .`;
+  -t ${githubRepository.id} .`;
     const { stdout } = await execPromise(buildCommand);
     const fileContent: string = stdout.trim();
     return new BaseResponse(200, '깃허브 파일 조회 성공', fileContent);
+  }
+
+  public async getTree(repositoryId: number): Promise<BaseResponse> {
+    const githubRepository: GithubRepositoryEntity =
+      await this.githubRepositoryRepository.getById(repositoryId);
+    const { stdout } = await execPromise(
+      `docker exec ${githubRepository.id} tree -J /app/repository`,
+    );
+    return new BaseResponse(
+      200,
+      '깃허브 파일 트리 조회 성공',
+      JSON.parse(stdout),
+    );
   }
 
   public async getById(id: number): Promise<BaseResponse> {
