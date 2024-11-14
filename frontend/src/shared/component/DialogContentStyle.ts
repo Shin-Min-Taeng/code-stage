@@ -1,5 +1,5 @@
 import {css} from "styled-components";
-import {popupAnimationStyle} from "./animation/popup.animation";
+import {popupAnimationStyle} from "../animation/popup.animation";
 
 const DialogContentStyle = css`
     background: var(--surface);

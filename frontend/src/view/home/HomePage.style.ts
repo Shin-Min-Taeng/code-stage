@@ -20,7 +20,6 @@ const S = {
     `,
     logoContainer: styled.div`
         display: flex;
-        cursor: pointer;
         padding: 0 12px;
         align-items: center;
         gap: 12px;
@@ -55,24 +54,30 @@ const S = {
         justify-content: flex-end;
     `,
     content: styled.div`
-        padding: 0 8px;
+        padding: 0 8px 72px 8px;
         
         column-gap: 0;
         column-count: 5;
+        -webkit-column-count: 5;
+
         @media (min-width: 1200px) {
             column-count: 5;
+            -webkit-column-count: 5;
         }
 
         @media (max-width: 1199px) and (min-width: 992px) {
             column-count: 4;
+            -webkit-column-count: 4;
         }
 
         @media (max-width: 991px) and (min-width: 768px) {
             column-count: 3;
+            -webkit-column-count: 3;
         }
 
         @media (max-width: 767px) {
             column-count: 2;
+            -webkit-column-count: 2;
         }
     `
 };

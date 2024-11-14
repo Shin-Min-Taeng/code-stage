@@ -96,4 +96,55 @@ export const dummyRepositories: Repository[] = [
         thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
         description: '코드리뷰 해보십쇼',
     },
+    {
+        id: 11,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
+    {
+        id: 12,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
+    {
+        id: 13,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
+
+    {
+        id: 14,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
+
+    {
+        id: 15,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
+
+    {
+        id: 16,
+        repositoryUrl: 'about.blank',
+        codeUrl: 'about.blank',
+        name: '이것이다',
+        thumbnailUrl: 'https://i.pinimg.com/736x/90/c9/79/90c979ad1e587756546c13d28867884d.jpg',
+        description: '코드리뷰 해보십쇼',
+    },
 ]

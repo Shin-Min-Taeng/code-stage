@@ -1,9 +1,13 @@
 import {Editor} from "@monaco-editor/react";
 import React, {useState} from "react";
 import S from './CodeStage.style';
-import Text, {TextSize} from "../../shared/Text";
-import Spacer from "../../shared/Spacer";
-import {dummyComments} from "../../model/Review";
+import Text, {TextSize} from "../../shared/component/Text";
+import Spacer from "../../shared/component/Spacer";
+import {dummyReviews} from "../../model/Review";
+import './style.css';
+import {SendIcon} from "../../shared/component/Icons";
+import ReviewCell from "./component/ReviewCell";
+import {css} from "styled-components";
 
 const dummyCode = 'import SwiftUI\n' +
     'import Component\n' +
@@ -104,38 +108,29 @@ export default function CodeStagePage() {
 
     return (
         <S.root>
-            <S.editorWrapper>
-                <Editor
-                    height={'100%'}
-                    width={'calc(100vw - 480px)'}
-                    defaultLanguage={'swift'}
-                    defaultValue={dummyCode}
-                    theme={'vs-dark'}
-                />
-            </S.editorWrapper>
+            <Editor
+                className={'code-editor'}
+                height={'100%'}
+                width={'calc(100vw - 480px)'}
+                defaultLanguage={'swift'}
+                defaultValue={dummyCode}
+                theme={'vs-dark'}
+            />
             <S.sidebarContainer>
-                <div style={{
-                    padding: 4
-                }}>
-                    <Text size={TextSize.Large} text={'코드 리뷰'}/>
-                </div>
-                <Spacer h={10}/>
+                <Text size={TextSize.Large} text={'코드 리뷰'} customStyle={css`padding: 16px`}/>
                 <S.commentContainer>
-                    {dummyComments.map(comment => (
-                        <S.comment>{comment.content}</S.comment>
+                    {dummyReviews.map(review => (
+                        <ReviewCell review={review}/>
                     ))}
                 </S.commentContainer>
-                <div style={{
-                    display: 'flex',
-                    backgroundColor: 'var(--surface)'
-                }}>
-                    <S.input value={comment} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                        setComment(event.target.value);
-                    }}/>
+                <S.inputContainer>
+                    <S.textareaContainer>
+                        <S.textarea/>
+                    </S.textareaContainer>
                     <S.sendButton>
-                        Send
+                        <SendIcon width={32} height={32} fill={'var(--primary)'}/>
                     </S.sendButton>
-                </div>
+                </S.inputContainer>
             </S.sidebarContainer>
         </S.root>
     )

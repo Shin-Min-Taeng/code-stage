@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, {useEffect, useRef} from "react";
-import {fadeInAnimationStyle} from "./animation/fade.animation";
+import {fadeInAnimationStyle} from "../animation/fade.animation";
 
 interface BaseDialogProps {
     children: React.ReactNode;

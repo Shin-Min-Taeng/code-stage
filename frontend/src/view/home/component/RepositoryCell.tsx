@@ -2,7 +2,7 @@ import Repository from "../../../model/Repository";
 import styled, {css} from "styled-components";
 import {useState} from "react";
 import {fadeInAnimationStyle, fadeOutAnimationStyle} from "../../../shared/animation/fade.animation";
-import Text, {TextSize} from "../../../shared/Text";
+import Text, {TextSize} from "../../../shared/component/Text";
 
 interface RepositoryCellProps {
     repository: Repository;
@@ -43,6 +43,12 @@ const S = {
         position: relative;
         margin: 0 4px 16px 4px;
         gap: 8px;
+        break-inside: avoid-column; // column 잘림 방지
+        
+        &:active {
+            scale: 0.98;
+        }
+        transition: 0.1s ease-in-out;
     `,
     thumbnailContainer: styled.div`
         display: flex;
@@ -50,7 +56,7 @@ const S = {
         &:hover {
             scale: 1.01;
         }
-
+        
         transition: 0.1s ease-in-out;
         cursor: pointer;
     `,
@@ -58,7 +64,6 @@ const S = {
         display: flex;
         width: 100%;
         border-radius: 16px;
-
     `,
     front: styled.div<{
         isHovering: boolean;

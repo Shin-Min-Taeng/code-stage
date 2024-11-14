@@ -2,8 +2,8 @@ import S from './HomePage.style';
 import {dummyRepositories} from "../../model/Repository";
 import RepositoryCell from "./component/RepositoryCell";
 import {useState} from "react";
-import Logo from "../../shared/Logo";
-import Button from "../../shared/Button";
+import Logo from "../../shared/component/Logo";
+import Button from "../../shared/component/Button";
 import RegisterRepositoryDialog from "./component/RegisterRepositoryDialog";
 
 export default function HomePage() {

@@ -8,15 +8,10 @@ const style = {
         width: 100vw;
         word-break: keep-all;
     `,
-    editorWrapper: styled.div`
-        display: flex;
-        flex: 1;
-    `,
     sidebarContainer: styled.div`
         display: flex;
         flex-direction: column;
         background: var(--surface);
-        color: white;
         width: 480px;
     `,
     commentContainer: styled.li`
@@ -24,37 +19,56 @@ const style = {
         flex-direction: column-reverse;
         list-style: none;
         padding: 0 12px;
-        gap: 4px;
         overflow: auto;
-    `,
-    comment: styled.ul`
-        display: flex;
-        font-size: 16px;
-        color: var(--on-surface);
-        background: var(--container);
-        padding: 12px;
-        border-radius: 12px;
-    `,
-    input: styled.textarea`
-        display: flex;
-        background: transparent;
-        resize: none;
-        margin: 16px;
-        outline: none;
+        gap: 16px;
         flex: 1;
-        font-size: 20px;
-        ${hideScrollBar};
+    `,
+    inputContainer: styled.div`
+        display: flex;
+        padding: 8px;
+        gap: 8px;
+        align-items: center;
+    `,
+    textareaContainer: styled.div`
+        display: flex;
+        padding: 16px;
+        min-height: 64px;
+        flex: 1;
+        background: var(--container-low);
+        border-radius: 32px;
+    `,
+    textarea: styled.textarea`
+        display: flex;
+        width: 100%;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        font-weight: lighter;
+        resize: vertical;
+        background: transparent;
     `,
     sendButton: styled.button`
         display: flex;
-        width: 68px;
-        height: 100%;
-        outline: none;
-        justify-content: center;
         align-items: center;
-        color: var(--primary);
-        font-weight: bold;
-        align-self: flex-end;
+        justify-content: center;
+        outline: none;
+        border: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        background: transparent;
+        cursor: pointer;
+        
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        &:active {
+            background: rgba(0, 0, 0, 0.1);
+            scale: 0.94;
+        }
+
+        transition: 0.1s background, 0.1s scale;
     `,
 }
 
