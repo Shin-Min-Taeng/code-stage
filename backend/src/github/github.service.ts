@@ -3,6 +3,7 @@ import GithubRepositoryRepository from './githubrepository.repository';
 import RegisterGithubrepositoryDto from './dto/registerGithubrepository.dto';
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
+import { execPromise } from '../support/exec.promise';
 
 @Injectable()
 export class GithubService {
@@ -15,6 +16,24 @@ export class GithubService {
   ): Promise<BaseResponse> {
     await this.githubRepositoryRepository.save(dto);
     return new BaseResponse(200, '깃허브 레포지토리 등록 성공');
+  }
+
+  public async getFile(
+    repositoryId: number,
+    path: string,
+    branch: string,
+  ): Promise<BaseResponse> {
+    const githubRepository: GithubRepositoryEntity =
+      await this.githubRepositoryRepository.getById(repositoryId);
+    const docker_unique = `image_${githubRepository.id}`;
+    const buildCommand = `docker build \
+  --build-arg GITHUB_REPOSITORY_URL=${githubRepository.url} \
+  --build-arg FILE_PATH=${path} \
+  --build-arg BRANCH=${branch} \
+  -t ${docker_unique} .`;
+    const { stdout } = await execPromise(buildCommand);
+    const fileContent: string = stdout.trim();
+    return new BaseResponse(200, '깃허브 파일 조회 성공', fileContent);
   }
 
   public async getById(id: number): Promise<BaseResponse> {

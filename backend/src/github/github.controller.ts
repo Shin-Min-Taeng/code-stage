@@ -35,6 +35,15 @@ export class GithubController {
     return this.githubService.delete(id);
   }
 
+  @Get('/:repositoryId/:path}')
+  async getFile(
+    @Param('repositoryId') repositoryId: number,
+    @Param('path') path: string,
+    @Param('branch') branch: string,
+  ): Promise<BaseResponse> {
+    return this.githubService.getFile(repositoryId, path, branch);
+  }
+
   @Get('/:id')
   async getById(@Param('id') id: number): Promise<BaseResponse> {
     return this.githubService.getById(id);
