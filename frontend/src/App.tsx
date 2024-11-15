@@ -4,8 +4,10 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './index.css';
 import HomePage from "./view/home/HomePage";
 import NotFountPage from "./view/notfound/NotFoundPage";
+import {hello} from "shared/src";
 
 function App() {
+    alert(hello);
     return (
         <Router>
             <Routes>
