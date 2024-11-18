@@ -21,7 +21,7 @@ class DatabaseConfig implements TypeOrmOptionsFactory {
       password: DATABASE.PASSWORD,
       database: DATABASE.DATABASE,
       entities: entities,
-      synchronize: false,
+      synchronize: true,
     };
   }
 }
@@ -30,6 +30,7 @@ class DatabaseConfig implements TypeOrmOptionsFactory {
   imports: [
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConfig,
+      
     })
   ],
 })
