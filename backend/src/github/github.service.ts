@@ -4,6 +4,8 @@ import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/register
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
 import {execPromise} from '../support/exec.promise';
+import {ReviewMapper} from "../review/review.mapper";
+import {GithubMapper} from "./github.mapper";
 
 @Injectable()
 export class GithubService {
@@ -59,17 +61,15 @@ export class GithubService {
         return {
             status: 200,
             message: 'id로 깃허브 레포지토리 조회 성공',
-            data: await this.githubRepositoryRepository.getById(id)
+            data: GithubMapper.toResponse(await this.githubRepositoryRepository.getById(id))
         };
     }
 
     public async getAll() {
-        const githubrepositories: GithubRepositoryEntity[] =
-            await this.githubRepositoryRepository.getAll();
         return {
             status: 200,
             message: '깃허브 레포지토리 조회 성공',
-            data: githubrepositories,
+            data: GithubMapper.toResponseList(await this.githubRepositoryRepository.getAll()),
         }
     }
 

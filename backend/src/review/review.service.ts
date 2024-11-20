@@ -5,6 +5,7 @@ import GithubRepositoryRepository from '../github/githubrepository.repository';
 import GithubRepositoryEntity from '../github/githubrepository.entity';
 import {ReviewEntity} from "./review.entitiy";
 import BaseResponse from "../support/base.response";
+import {ReviewMapper} from "./review.mapper";
 
 @Injectable()
 export class ReviewService {
@@ -20,10 +21,13 @@ export class ReviewService {
     ): Promise<BaseResponse<ReviewEntity>> {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(githubRepositoryId);
+
         return {
             status: 200,
             message: '리뷰 등록 성공',
-            // data: await this.reviewRepository.save(registerDto.toEntity(githubRepository)),
+            data: await this.reviewRepository.save(
+                ReviewMapper.toEntity(registerDto, githubRepository)
+            ),
         };
     }
 
@@ -50,13 +54,14 @@ export class ReviewService {
         };
     }
 
-    public async getByRepositoryId(id: number): Promise<BaseResponse<ReviewEntity[]>> {
+    public async getByRepositoryId(id: number): Promise<BaseResponse> {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(id);
         return {
             status: 200,
             message: '레포지토리별 리뷰 조회 성공',
-            data: await this.reviewRepository.getByGithubRepository(githubRepository)
+            data: ReviewMapper.toResponseList(await this.reviewRepository.getByGithubRepository(githubRepository))
         };
     }
+
 }
