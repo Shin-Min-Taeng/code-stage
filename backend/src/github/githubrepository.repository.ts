@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import GithubRepositoryEntity from './githubrepository.entity';
-import RegisterGithubrepositoryDto from './dto/registerGithubrepository.dto';
+import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 
 @Injectable()
 export default class GithubRepositoryRepository {

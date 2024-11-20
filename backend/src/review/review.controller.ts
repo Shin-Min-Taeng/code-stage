@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import RegisterReviewDto from './dto/registerReview.dto';
+import RegisterReviewDto from '../../../shared/src/review/dto/registerReview.dto';
 import BaseResponse from '../support/base.response';
 
 @Controller('review')

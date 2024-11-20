@@ -1,7 +1,5 @@
-export default class BaseResponse {
-  constructor(
-    public status: number,
-    public message: string,
-    public data?: string | object,
-  ) {}
+export default interface BaseResponse<T = any> {
+  status: number;
+  message: string;
+  data?: T;
 }

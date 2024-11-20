@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import BaseResponse from '../support/base.response';
 import { GithubService } from './github.service';
-import RegisterGithubrepositoryDto from './dto/registerGithubrepository.dto';
+import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 
 @Controller('github-repository')
 export class GithubController {
