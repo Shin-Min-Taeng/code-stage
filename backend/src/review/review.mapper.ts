@@ -21,6 +21,7 @@ export class ReviewMapper {
         response.file_path = review.file_path;
         response.line_number = review.line_number;
         response.createdAt = review.createdAt;
+        response.repositoryId = review.githubRepository.id
         return review;
     }
 
