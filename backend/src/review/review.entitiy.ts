@@ -17,10 +17,10 @@ export class ReviewEntity {
   content: string;
 
   @Column('text')
-  file_path: string;
+  filePath: string;
 
   @Column()
-  line_number: number;
+  lineNumber: number;
 
   @JoinColumn({ name: 'fk_github_repository_id' })
   @ManyToOne(

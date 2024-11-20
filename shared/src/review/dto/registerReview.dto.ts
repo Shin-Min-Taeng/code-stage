@@ -7,10 +7,10 @@ export default class RegisterReviewDto {
 
   @IsNotEmpty()
   @IsString()
-  file_path!: string;
+  filePath!: string;
 
   @IsNotEmpty()
-  line_number!: number;
+  lineNumber!: number;
 
   @IsNotEmpty()
   @IsString()

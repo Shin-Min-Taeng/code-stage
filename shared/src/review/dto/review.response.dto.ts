@@ -4,9 +4,9 @@ export default class ReviewResponseDto {
 
     content!: string;
 
-    file_path!: string;
+    filePath!: string;
 
-    line_number!: number;
+    lineNumber!: number;
 
     createdAt!: Date;
 
