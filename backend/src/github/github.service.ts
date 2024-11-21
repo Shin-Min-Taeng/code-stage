@@ -1,27 +1,50 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import GithubRepositoryRepository from './githubrepository.repository';
 import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
 import {execPromise} from '../support/exec.promise';
-import {ReviewMapper} from "../review/review.mapper";
 import {GithubMapper} from "./github.mapper";
+import {GraphQLClient} from "graphql-request";
+import {GITHUB} from "../support/dotenv";
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class GithubService {
     constructor(
         private readonly githubRepositoryRepository: GithubRepositoryRepository,
+        private readonly graphqlClient: GraphQLClient,
     ) {
+        this.graphqlClient = new GraphQLClient(GITHUB.API_URL, {
+            headers: {
+                Authorization: `Bearer ${GITHUB.TOKEN}`,
+            }
+        });
     }
 
     public async register(
         dto: RegisterGithubrepositoryDto,
     ): Promise<BaseResponse> {
-        await this.githubRepositoryRepository.save(dto);
-        return {
-            status: 200,
-            message: '깃허브 레포지토리 등록 성공'
+
+        const [orgName, repoName] = dto.name.split('/');
+        const query = readFileSync(join(__dirname, 'github.query.graphql'), 'utf-8');
+        const variables = {
+            orgName,
+            repoName,
         };
+        try {
+            const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, variables);
+            dto.url = data.repository.url;
+            dto.thumbnailImg = data.repository.owner.avatarUrl
+            await this.githubRepositoryRepository.save(dto);
+            return {
+                status: 200,
+                message: '깃허브 레포지토리 등록 성공'
+            };
+        } catch (error) {
+            throw new Error(`Failed to fetch repository details: ${error.message}`);
+        }
     }
 
     public async getFile(

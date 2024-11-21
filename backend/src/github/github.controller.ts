@@ -1,19 +1,13 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post,} from '@nestjs/common';
 import BaseResponse from '../support/base.response';
-import { GithubService } from './github.service';
+import {GithubService} from './github.service';
 import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 
 @Controller('github-repository')
 export class GithubController {
-  constructor(private githubService: GithubService) {}
+  constructor(
+      private githubService: GithubService,
+) {}
 
   @Post()
   async registerGithubRepository(

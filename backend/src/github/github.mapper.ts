@@ -1,5 +1,6 @@
 import GithubRepositoryEntity from "./githubrepository.entity";
 import GithubrepositoryResponseDto from "../../../shared/src/github/dto/githubrepository.response.dto";
+import RegisterGithubrepositoryDto from "shared/src/github/dto/registerGithubrepository.dto";
 
 export class GithubMapper {
     static toResponse(githubrepository: GithubRepositoryEntity){
@@ -17,5 +18,14 @@ export class GithubMapper {
             (githubrepository: GithubRepositoryEntity) =>
                 this.toResponse(githubrepository)
         )
+    }
+
+    static toEntity(githubrepository: RegisterGithubrepositoryDto){
+        const entity = new GithubRepositoryEntity();
+        entity.name = githubrepository.name;
+        entity.description = githubrepository.description;
+        entity.url = githubrepository.url;
+        entity.thumbnailImg = githubrepository.thumbnailImg;
+        return entity;
     }
 }

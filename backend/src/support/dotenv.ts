@@ -18,6 +18,11 @@ export const DATABASE = {
   DATABASE: getValue('DB_NAME'),
 };
 
+export const GITHUB = {
+  TOKEN: getValue('GITHUB_TOKEN'),
+  API_URL: getValue('GITHUB_API_URL'),
+}
+
 const config = {
   DATABASE,
 };

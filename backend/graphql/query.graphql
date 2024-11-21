@@ -1,9 +1,0 @@
-query($repoName: String!, $ownerName: String!) {
-  repository(name: $repoName, owner: $ownerName) {
-    name
-    url
-    owner {
-      avatarUrl
-    }
-  }
-}

@@ -5,9 +5,14 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { GithubModule } from './github/github.module';
 import { ReviewModule } from './review/review.module';
+import {GraphQLModule} from "@nestjs/graphql";
 
 @Module({
   imports: [
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+      playground: true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),

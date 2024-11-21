@@ -1,0 +1,8 @@
+query getRepositoryDetails($orgName: String!, $repoName: String!) {
+  repository(owner: $orgName, name: $repoName) {
+    url
+    owner {
+      avatarUrl
+    }
+  }
+}
