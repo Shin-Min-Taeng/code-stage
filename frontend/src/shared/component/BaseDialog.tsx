@@ -3,7 +3,7 @@ import React, {useEffect, useRef} from "react";
 import {fadeInAnimationStyle} from "../animation/fade.animation";
 
 interface BaseDialogProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     dismiss: () => void;
 }
 

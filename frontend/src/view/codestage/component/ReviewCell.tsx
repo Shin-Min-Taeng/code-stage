@@ -1,10 +1,10 @@
-import {Review} from "../../../model/Review";
 import styled, {css} from "styled-components";
 import DateUtil from "../../../shared/util/DateUtil";
 import Text, {TextSize} from "../../../shared/component/Text";
+import ReviewResponseDto from "shared/dist/review/dto/review.response.dto";
 
 interface ReviewCellProps {
-    review: Review
+    review: ReviewResponseDto
 }
 
 export default function ReviewCell(

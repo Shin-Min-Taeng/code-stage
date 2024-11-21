@@ -1,28 +1,29 @@
-import Repository from "../../../model/Repository";
 import styled, {css} from "styled-components";
-import {useState} from "react";
-import {fadeInAnimationStyle, fadeOutAnimationStyle} from "../../../shared/animation/fade.animation";
+import {HTMLAttributes, useState} from "react";
+import {fadeInAnimationStyle} from "../../../shared/animation/fade.animation";
 import Text, {TextSize} from "../../../shared/component/Text";
+import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
 
-interface RepositoryCellProps {
-    repository: Repository;
+interface RepositoryCellProps extends HTMLAttributes<HTMLDivElement> {
+    repository: GithubrepositoryResponseDto;
 }
 
 export default function RepositoryCell(
     {
         repository,
+        ...props
     }: RepositoryCellProps
 ) {
     const [isHovering, setIsHovering] = useState(false);
 
     return (
-        <S.container>
+        <S.container {...props}>
             <S.thumbnailContainer
                 onMouseOver={() => setIsHovering(true)}
                 onMouseOut={() => setIsHovering(false)}
             >
                 <S.thumbnail
-                    src={repository.thumbnailUrl}
+                    src={repository.thumbnailImg}
                 />
                 <S.front isHovering={isHovering}>
                     <Text size={TextSize.Medium} text={repository.name}
@@ -31,7 +32,7 @@ export default function RepositoryCell(
                           customStyle={css`color: var(--on-surface)`}/>
                 </S.front>
             </S.thumbnailContainer>
-            <Text size={TextSize.Small} text={repository.repositoryUrl}/>
+            <Text size={TextSize.Small} text={repository.url}/>
         </S.container>
     );
 };

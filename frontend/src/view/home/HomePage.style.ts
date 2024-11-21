@@ -36,11 +36,11 @@ const S = {
         width: 960px;
         padding: 16px 20px;
         outline: none;
-        border: none;
         border-radius: 100px;
         background: var(--container-low);
         color: var(--on-surface);
         font-size: 18px;
+        border: 1px solid var(--container);
         &:hover {
             background: var(--container-high);
         }

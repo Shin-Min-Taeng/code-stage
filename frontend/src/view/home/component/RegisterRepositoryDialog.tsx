@@ -34,7 +34,7 @@ const S = {
         display: flex;
         flex-direction: column;
         ${dialogContentStyle};
-        width: 960px;
+        min-width: 480px;
     `,
     header: styled.div`
         display: flex;

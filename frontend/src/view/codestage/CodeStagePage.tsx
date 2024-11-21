@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import S from './CodeStage.style';
 import Text, {TextSize} from "../../shared/component/Text";
 import Spacer from "../../shared/component/Spacer";
-import {dummyReviews} from "../../model/Review";
+import {dummyReviews} from "../../dummy/review.response.dto.dummy";
 import './style.css';
 import {SendIcon} from "../../shared/component/Icons";
 import ReviewCell from "./component/ReviewCell";
