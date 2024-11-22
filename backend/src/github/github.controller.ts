@@ -2,6 +2,7 @@ import {Body, Controller, Delete, Get, Param, Patch, Post,} from '@nestjs/common
 import BaseResponse from '../support/base.response';
 import {GithubService} from './github.service';
 import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
+import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
 
 @Controller('github-repository')
 export class GithubController {

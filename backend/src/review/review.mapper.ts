@@ -2,7 +2,6 @@ import GithubRepositoryEntity from "../github/githubrepository.entity";
 import {ReviewEntity} from "./review.entitiy";
 import RegisterReviewDto from "../../../shared/src/review/dto/registerReview.dto";
 import ReviewResponseDto from "../../../shared/src/review/dto/review.response.dto";
-import GithubrepositoryResponseDto from "../../../shared/src/github/dto/githubrepository.response.dto";
 
 export class ReviewMapper {
     static toEntity(dto: RegisterReviewDto, githubRepository: GithubRepositoryEntity) {
