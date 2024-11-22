@@ -12,15 +12,15 @@ import { join } from 'path';
 
 @Injectable()
 export class GithubService {
+    graphqlClient: GraphQLClient = new GraphQLClient(GITHUB.API_URL, {
+        headers: {
+            Authorization: `Bearer ${GITHUB.TOKEN}`,
+        }
+    });
+
     constructor(
-        private readonly githubRepositoryRepository: GithubRepositoryRepository,
-        private readonly graphqlClient: GraphQLClient,
+        private readonly githubRepositoryRepository: GithubRepositoryRepository
     ) {
-        this.graphqlClient = new GraphQLClient(GITHUB.API_URL, {
-            headers: {
-                Authorization: `Bearer ${GITHUB.TOKEN}`,
-            }
-        });
     }
 
     public async register(
