@@ -1,5 +1,5 @@
 export default class RegisterGithubrepositoryDto {
-  name!: string;
+  url!: string;
 
   description!: string;
 }

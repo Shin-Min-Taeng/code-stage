@@ -20,12 +20,12 @@ export class GithubMapper {
         )
     }
 
-    static toEntity(githubrepository: RegisterGithubrepositoryDto){
+    static toEntity(githubrepository: RegisterGithubrepositoryDto, name: string, thumbnailImg: string){
         const entity = new GithubRepositoryEntity();
-        entity.name = githubrepository.name;
+        entity.name = name;
         entity.description = githubrepository.description;
         entity.url = githubrepository.url;
-        entity.thumbnailImg = githubrepository.thumbnailImg;
+        entity.thumbnailImg = thumbnailImg;
         return entity;
     }
 }

@@ -3,6 +3,7 @@ import BaseResponse from '../support/base.response';
 import {GithubService} from './github.service';
 import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
+import {ApiCreatedResponse} from "@nestjs/swagger";
 
 @Controller('github-repository')
 export class GithubController {
@@ -11,6 +12,7 @@ export class GithubController {
 ) {}
 
   @Post()
+  @ApiCreatedResponse()
   async registerGithubRepository(
     @Body() registerDto: RegisterGithubrepositoryDto,
   ): Promise<BaseResponse> {
@@ -50,6 +52,7 @@ export class GithubController {
   }
 
   @Get()
+  @ApiCreatedResponse({type: GithubrepositoryResponseDto})
   async getAll(): Promise<BaseResponse> {
     return this.githubService.getAll();
   }

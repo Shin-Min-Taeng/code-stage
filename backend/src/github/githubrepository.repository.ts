@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import GithubRepositoryEntity from './githubrepository.entity';
 import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
+import BaseResponse from "../support/base.response";
 
 @Injectable()
 export default class GithubRepositoryRepository {
@@ -10,12 +11,8 @@ export default class GithubRepositoryRepository {
     @InjectRepository(GithubRepositoryEntity)
     private readonly githubRepositoryRepository: Repository<GithubRepositoryEntity>,
   ) {}
-  public save(
-    registerDto: RegisterGithubrepositoryDto,
-  ): Promise<GithubRepositoryEntity> {
-    return this.githubRepositoryRepository.save(
-      this.githubRepositoryRepository.create(registerDto),
-    );
+  public save(entity: GithubRepositoryEntity): Promise<GithubRepositoryEntity> {
+    return this.githubRepositoryRepository.save(entity);
   }
 
   public update(

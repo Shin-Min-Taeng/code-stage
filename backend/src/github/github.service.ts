@@ -26,18 +26,15 @@ export class GithubService {
     public async register(
         dto: RegisterGithubrepositoryDto,
     ): Promise<BaseResponse> {
-
-        const [orgName, repoName] = dto.name.split('/');
+        const regex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)/;
+        const repositoryName = dto.url.match(regex)
         const query = readFileSync(join(__dirname, 'github.query.graphql'), 'utf-8');
-        const variables = {
-            orgName,
-            repoName,
-        };
+        const org = repositoryName[1]
+        const repo = repositoryName[2]
+
         try {
-            const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, variables);
-            dto.url = data.repository.url;
-            dto.thumbnailImg = data.repository.owner.avatarUrl
-            await this.githubRepositoryRepository.save(dto);
+            const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, {org, repo});
+            await this.githubRepositoryRepository.save(GithubMapper.toEntity(dto, org+repo, data.repository.owner.avatarUrl));
             return {
                 status: 200,
                 message: '깃허브 레포지토리 등록 성공'
