@@ -1,11 +1,11 @@
 import {Injectable} from '@nestjs/common';
 import ReviewRepository from './review.repository';
-import RegisterReviewDto from '../../../shared/src/review/dto/registerReview.dto';
 import GithubRepositoryRepository from '../github/githubrepository.repository';
 import GithubRepositoryEntity from '../github/githubrepository.entity';
 import {ReviewEntity} from "./review.entitiy";
 import BaseResponse from "../support/base.response";
 import {ReviewMapper} from "./review.mapper";
+import RegisterReviewDto from "../../../shared/src/review/dto/registerReview.dto";
 
 @Injectable()
 export class ReviewService {

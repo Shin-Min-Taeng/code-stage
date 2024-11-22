@@ -8,8 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import RegisterReviewDto from '../../../shared/src/review/dto/registerReview.dto';
 import BaseResponse from '../support/base.response';
+import RegisterReviewDto from "../../../shared/src/review/dto/registerReview.dto";
 
 @Controller('review')
 export class ReviewController {

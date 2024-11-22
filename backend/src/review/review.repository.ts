@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReviewEntity } from './review.entitiy';
 import GithubRepositoryEntity from '../github/githubrepository.entity';
-import RegisterReviewDto from '../../../shared/src/review/dto/registerReview.dto';
+import RegisterReviewDto from "../../../shared/src/review/dto/registerReview.dto";
 
 @Injectable()
 export default class ReviewRepository {

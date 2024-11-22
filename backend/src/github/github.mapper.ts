@@ -1,6 +1,6 @@
 import GithubRepositoryEntity from "./githubrepository.entity";
 import GithubrepositoryResponseDto from "../../../shared/src/github/dto/githubrepository.response.dto";
-import RegisterGithubrepositoryDto from "shared/src/github/dto/registerGithubrepository.dto";
+import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/registerGithubrepository.dto";
 
 export class GithubMapper {
     static toResponse(githubrepository: GithubRepositoryEntity){

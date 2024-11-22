@@ -1,6 +1,5 @@
 import {Injectable, Logger} from '@nestjs/common';
 import GithubRepositoryRepository from './githubrepository.repository';
-import RegisterGithubrepositoryDto from '../../../shared/src/github/dto/registerGithubrepository.dto';
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
 import {execPromise} from '../support/exec.promise';
@@ -9,6 +8,7 @@ import {GraphQLClient} from "graphql-request";
 import {GITHUB} from "../support/dotenv";
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/registerGithubrepository.dto";
 
 @Injectable()
 export class GithubService {
