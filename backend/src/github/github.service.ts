@@ -1,4 +1,4 @@
-import {Injectable, Logger} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import GithubRepositoryRepository from './githubrepository.repository';
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
@@ -6,8 +6,8 @@ import {execPromise} from '../support/exec.promise';
 import {GithubMapper} from "./github.mapper";
 import {GraphQLClient} from "graphql-request";
 import {GITHUB} from "../support/dotenv";
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import {readFileSync} from 'fs';
+import {join} from 'path';
 import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/registerGithubrepository.dto";
 
 @Injectable()
@@ -26,15 +26,15 @@ export class GithubService {
     public async register(
         dto: RegisterGithubrepositoryDto,
     ): Promise<BaseResponse> {
+
         const regex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)/;
         const repositoryName = dto.url.match(regex)
-        const query = readFileSync(join(__dirname, 'github.query.graphql'), 'utf-8');
-        const org = repositoryName[1]
-        const repo = repositoryName[2]
-
+        const query = readFileSync(join(process.cwd(), '/src/github/github.query.graphql'), 'utf-8');
+        const orgName = repositoryName[1]
+        const repoName = repositoryName[2]
         try {
-            const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, {org, repo});
-            await this.githubRepositoryRepository.save(GithubMapper.toEntity(dto, org+repo, data.repository.owner.avatarUrl));
+            const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, {orgName: orgName, repoName: repoName});
+            await this.githubRepositoryRepository.save(GithubMapper.toEntity(dto, orgName+repoName, data.repository.owner.avatarUrl));
             return {
                 status: 200,
                 message: '깃허브 레포지토리 등록 성공'

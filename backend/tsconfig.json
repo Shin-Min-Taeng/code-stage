@@ -9,6 +9,10 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.graphql"
+    ],
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
