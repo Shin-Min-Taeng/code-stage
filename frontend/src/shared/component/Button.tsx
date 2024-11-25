@@ -32,8 +32,8 @@ export default function Button(
     }: ButtonProps
 ) {
     return (
-        <S.container 
-            isReversedColor={isReversedColor}
+        <S.container
+            $isReversedColor={isReversedColor}
             size={size}
             customStyle={customStyle} {...props}>
             {text}
@@ -43,7 +43,7 @@ export default function Button(
 
 const S = {
     container: styled.button<{
-        isReversedColor: boolean,
+        $isReversedColor: boolean,
         size: ButtonSize,
         customStyle?: RuleSet
     }>`
@@ -52,7 +52,7 @@ const S = {
         justify-content: center;
         padding: 12px 16px;
 
-        ${({isReversedColor}) => isReversedColor ? css`
+        ${({$isReversedColor}) => $isReversedColor ? css`
             background: var(--on-primary);
             color: black;
         ` : css`
@@ -70,8 +70,8 @@ const S = {
         `};
 
         &:hover {
-            ${({isReversedColor}) => css`
-                background: color-mix(in srgb, ${isReversedColor ? 'var(--on-primary)' : 'var(--primary)'} 90%, black 10%);
+            ${({$isReversedColor}) => css`
+                background: color-mix(in srgb, ${$isReversedColor ? 'var(--on-primary)' : 'var(--primary)'} 90%, black 10%);
             `}
         }
 

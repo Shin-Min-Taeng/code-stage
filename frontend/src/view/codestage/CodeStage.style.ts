@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {hideScrollBar} from "../../css.util";
 
 const style = {
     root: styled.div`

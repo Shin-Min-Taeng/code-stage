@@ -1,6 +1,7 @@
 import RegisterReviewDto from "shared/dist/review/dto/registerReview.dto";
 import customAxios from "./customAxios";
 import BaseResponse from "shared/dist/support/base.response";
+import ReviewResponseDto from "shared/dist/review/dto/review.response.dto";
 
 class ReviewRepo {
     PATH = 'review';
@@ -17,8 +18,12 @@ class ReviewRepo {
         return (await customAxios.delete(`${this.PATH}/${id}`)).data;
     }
     
-    async get(repositoryId: number): Promise<BaseResponse> {
-        return (await customAxios.get(`${this.PATH}/${repositoryId}`)).data;
+    async get(repositoryId: number): Promise<BaseResponse<ReviewResponseDto[]>> {
+        return (await customAxios.get(`${this.PATH}`, {
+            params: {
+                repository_Id: repositoryId
+            }
+        })).data;
     }
 }
 

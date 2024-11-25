@@ -11,8 +11,8 @@ export default function Spacer(
 ) {
     return (
         <div style={{
-            width: `${w}px`,
-            height: `${h}px`
+            minWidth: `${w}px`,
+            minHeight: `${h}px`
         }}/>
     );
 }

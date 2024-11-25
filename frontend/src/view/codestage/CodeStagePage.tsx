@@ -1,13 +1,16 @@
 import {Editor} from "@monaco-editor/react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import S from './CodeStage.style';
 import Text, {TextSize} from "../../shared/component/Text";
 import Spacer from "../../shared/component/Spacer";
 import {dummyReviews} from "../../dummy/review.response.dto.dummy";
 import './style.css';
 import {SendIcon} from "../../shared/component/Icons";
-import ReviewCell from "./component/ReviewCell";
+import ReviewCell from "../../shared/component/ReviewCell";
 import {css} from "styled-components";
+import githubrepositoryRepo from "../../data/githubrepository.repo";
+import {useLocation} from "react-router-dom";
+import {HomeToCodeStage} from "../../navigation/navigation.type";
 
 const dummyCode = 'import SwiftUI\n' +
     'import Component\n' +
@@ -40,23 +43,23 @@ const dummyCode = 'import SwiftUI\n' +
     '        ScrollView {\n' +
     '            VStack(spacing: 8) {\n' +
     '                HomeWorkspaceContainer(for: flow) {\n' +
-    '                    router.navigate(to: MainDestination.workspaceDetail)\n' +
+    '                    router.navigation(to: MainDestination.workspaceDetail)\n' +
     '                }\n' +
     '                HomeTimetableContainer(for: viewModel.timetables) {\n' +
-    '                    router.navigate(to: MainDestination.timetable)\n' +
+    '                    router.navigation(to: MainDestination.timetable)\n' +
     '                }\n' +
     '                HomeMealContainer(for: viewModel.meals) {\n' +
-    '                    router.navigate(to: MainDestination.meal)\n' +
+    '                    router.navigation(to: MainDestination.meal)\n' +
     '                }\n' +
     '                HomeCatSeugiContainer(for: flow) { action in\n' +
     '                    switch action {\n' +
     '                    case .didClickedChat:\n' +
-    '                        router.navigate(to: MainDestination.catSeugi)\n' +
+    '                        router.navigation(to: MainDestination.catSeugi)\n' +
     '                    }\n' +
     '                }\n' +
     '                HomeScheduleContainer(for: viewModel.schedules)\n' +
     '                HomeTaskContainer(for: viewModel.tasks) {\n' +
-    '                    router.navigate(to: MainDestination.task)\n' +
+    '                    router.navigation(to: MainDestination.task)\n' +
     '                }\n' +
     '            }\n' +
     '            .padding(.top, 8)\n' +
@@ -94,10 +97,10 @@ const dummyCode = 'import SwiftUI\n' +
     '            .init(title: "학교 등록하기")\n' +
     '            .message("학교를 등록한 뒤 스기를 사용할 수 있어요")\n' +
     '            .primaryButton("기존 학교 가입") {\n' +
-    '                router.navigate(to: MainDestination.joinWorkspaceRole)\n' +
+    '                router.navigation(to: MainDestination.joinWorkspaceRole)\n' +
     '            }\n' +
     '            .secondaryButton("새 학교 만들기") {\n' +
-    '                router.navigate(to: MainDestination.createWorkspace)\n' +
+    '                router.navigation(to: MainDestination.createWorkspace)\n' +
     '            }\n' +
     '        )\n' +
     '    }\n' +
@@ -105,6 +108,16 @@ const dummyCode = 'import SwiftUI\n' +
 
 export default function CodeStagePage() {
     const [comment, setComment] = useState('');
+
+    const location = useLocation();
+    
+    useEffect(() => {
+        (async () => {
+            const {id}: HomeToCodeStage = location.state;
+            const tree = await githubrepositoryRepo.getTree(id);
+            console.log(tree);
+        })()
+    }, []);
 
     return (
         <S.root>

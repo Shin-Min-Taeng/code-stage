@@ -1,20 +1,30 @@
 import S from './HomePage.style';
 import {dummyRepositories} from "../../dummy/githubrepository.response.dto.dummy";
 import RepositoryCell from "./component/RepositoryCell";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Logo from "../../shared/component/Logo";
 import Button from "../../shared/component/Button";
 import RegisterRepositoryDialog from "./component/RegisterRepositoryDialog";
 import RepositoryDetailDialog from "./component/RepositoryDetailDialog";
 import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
+import githubrepositoryRepo from "../../data/githubrepository.repo";
 
 export default function HomePage() {
     const [searchText, setSearchText] = useState('');
-    const [showRegisterRepositoryDialog, setShowRegisterRepositoryDialog] = useState(false);
-
-    // repository
-    const [showRepositoryDetailDialog, setShowRepositoryDetailDialog] = useState(false);
     const [selectedRepository, setSelectedRepository] = useState<GithubrepositoryResponseDto>();
+    const [repositories, setRepositories] = useState<GithubrepositoryResponseDto[]>([]);
+    
+    const [showRegisterRepositoryDialog, setShowRegisterRepositoryDialog] = useState(false);
+    const [showRepositoryDetailDialog, setShowRepositoryDetailDialog] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            const repositories = await githubrepositoryRepo.getAll();
+            console.log(repositories);
+            
+            setRepositories(repositories.data ?? []);
+        })();
+    }, []);
 
     return (
         <>
@@ -38,10 +48,10 @@ export default function HomePage() {
                     </S.navRightContainer>
                 </S.navContainer>
                 <S.content>
-                    {dummyRepositories.map(repository => (
+                    {repositories.map(repository => (
                         <RepositoryCell
-                            key={repository.id} 
-                            repository={repository} 
+                            key={repository.id}
+                            repository={repository}
                             onClick={() => {
                                 setSelectedRepository(repository);
                                 setShowRepositoryDetailDialog(true);

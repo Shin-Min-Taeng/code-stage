@@ -4,6 +4,9 @@ import dialogContentStyle from "../../../shared/component/DialogContentStyle";
 import Text, {TextSize} from "../../../shared/component/Text";
 import Button from "../../../shared/component/Button";
 import Spacer from "../../../shared/component/Spacer";
+import {useRef} from "react";
+import GithubrepositoryRepo from "../../../data/githubrepository.repo";
+import {redirect, useLocation} from "react-router-dom";
 
 interface RegisterRepositoryDialogProps {
     dismiss: () => void;
@@ -14,16 +17,40 @@ export default function RegisterRepositoryDialog(
         dismiss
     }: RegisterRepositoryDialogProps
 ) {
+    const repositoryInputRef = useRef<HTMLInputElement>(null);
+    const descriptionTextAreaRef = useRef<HTMLTextAreaElement>(null);
+
+    async function registerGithubRepository() {
+        const repositoryInput = repositoryInputRef.current;
+        const descriptionTextArea = descriptionTextAreaRef.current;
+        if (!repositoryInput?.value) {
+            return;
+        }
+        
+        if (!repositoryInput.value.startsWith("https://github.com/")) {
+            alert('레포지토리 url 형식이 잘못 되었습니다');
+            return;
+        }
+
+        await GithubrepositoryRepo.register({
+            url: repositoryInput.value,
+            description: descriptionTextArea?.value ?? '',
+        });
+
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+    }
+
     return (
         <BaseDialog dismiss={dismiss}>
             <S.container>
                 <Text size={TextSize.Large} text={'레포지토리 등록'}/>
                 <Spacer h={8}/>
-                <S.input placeholder={'https://github.com/torvalds/linux'}/>
+                <S.input ref={repositoryInputRef} placeholder={'https://github.com/torvalds/linux'}/>
                 <Spacer h={8}/>
-                <S.textarea placeholder={'설명을 적어주세요'} />
+                <S.textarea ref={descriptionTextAreaRef} placeholder={'설명을 적어주세요'}/>
                 <Spacer h={32}/>
-                <Button text={'완료'}/>
+                <Button onClick={registerGithubRepository} text={'완료'}/>
             </S.container>
         </BaseDialog>
     );
@@ -33,7 +60,7 @@ const S = {
     container: styled.div`
         display: flex;
         flex-direction: column;
-        ${dialogContentStyle};
+        ${dialogContentStyle({})};
         min-width: 480px;
     `,
     header: styled.div`

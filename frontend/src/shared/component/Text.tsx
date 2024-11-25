@@ -1,4 +1,6 @@
-import styled, {CSSProperties, RuleSet} from "styled-components";
+import styled, {css, CSSProperties, RuleSet} from "styled-components";
+import {HTMLAttributes} from "react";
+import {keyboard} from "@testing-library/user-event/dist/keyboard";
 
 export enum TextSize {
     Small,
@@ -6,6 +8,11 @@ export enum TextSize {
     Large,
     Headline,
     Display
+}
+
+export enum TextFont {
+    Elice,
+    Pretendard
 }
 
 const textSizeValues: { [key in TextSize]: number } = {
@@ -16,19 +23,18 @@ const textSizeValues: { [key in TextSize]: number } = {
     [TextSize.Small]: 12
 }
 
-interface TextProps {
+const textFontValues: { [keyboard in TextFont]: CSSProperties['fontFamily'] | undefined } = {
+    [TextFont.Elice]: undefined,
+    [TextFont.Pretendard]: 'Pretendard !important;',
+};
+
+interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     size: TextSize;
-    // color?: CSSProperties['color'];
     text: string;
     fontWeight?: CSSProperties['fontWeight'];
+    font?: TextFont;
     customStyle?: RuleSet;
 }
-
-const Container = styled.span<{
-    $customStyle?: RuleSet
-}>`
-    ${({$customStyle}) => $customStyle}
-`
 
 export default function Text(
     {
@@ -36,15 +42,33 @@ export default function Text(
         // color,
         text,
         fontWeight,
-        customStyle
+        font,
+        customStyle,
+        ...props
     }: TextProps
 ) {
-    return <Container $customStyle={customStyle} style={{
-        fontSize: textSizeValues[size],
-        // color,
-        display: 'flex',
-        fontWeight: fontWeight,
-    }}>
+    return <Container
+        fontSize={textSizeValues[size]}
+        fontWeight={fontWeight}
+        fontFamily={font ? textFontValues[font] : undefined}
+        $customStyle={customStyle}
+        {...props}
+    >
         {text}
     </Container>
 }
+
+const Container = styled.span<{
+    fontFamily: CSSProperties['fontFamily'];
+    fontSize: CSSProperties['fontSize'];
+    fontWeight: CSSProperties['fontWeight'];
+    $customStyle?: RuleSet;
+}>`
+    display: flex;
+    ${props => css`
+        font-family: ${props.fontFamily};
+        font-size: ${props.fontSize}px;
+        font-weight: ${props.fontWeight};
+        ${props.$customStyle};
+    `};
+`;

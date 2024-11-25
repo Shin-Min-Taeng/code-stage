@@ -26,7 +26,6 @@ export class GithubService {
     public async register(
         dto: RegisterGithubrepositoryDto,
     ): Promise<BaseResponse> {
-
         const regex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)/;
         const repositoryName = dto.url.match(regex)
         const query = readFileSync(join(process.cwd(), '/src/github/github.query.graphql'), 'utf-8');
