@@ -83,8 +83,6 @@ export class GithubService {
     # 새 컨테이너 실행
     docker run -d --name container_${githubRepository.id} ${githubRepository.id} tail -f /dev/null
 `;
-
-
         // 빌드 및 실행
         await execPromise(buildCommand);
 
