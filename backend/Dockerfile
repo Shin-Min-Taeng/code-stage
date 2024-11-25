@@ -14,7 +14,7 @@ ARG BRANCH
 ENV BRANCH=$BRANCH
 
 # Git 리포지토리가 이미 클론되어 있는지 확인하고 없으면 git clone, 있으면 git pull
-RUN sh -c 'git clone $GITHUB_REPOSITORY_URL fi'
+RUN sh -c 'git clone $GITHUB_REPOSITORY_URL'
 
 # 파일 내용을 빌드 시 출력
 #ARG FILE_PATH

@@ -33,13 +33,12 @@ export class GithubController {
     return this.githubService.delete(id);
   }
 
-  @Get('/:repositoryId/:path/:branch')
+  @Get('/:repositoryId/path/:path')
   async getFile(
     @Param('repositoryId') repositoryId: number,
-    @Param('path') path: string,
-    @Param('branch') branch: string,
+    @Param('path') path: string
   ): Promise<BaseResponse> {
-    return this.githubService.getFile(repositoryId, path, branch);
+    return this.githubService.getFile(repositoryId, path);
   }
 
   @Get('/:id')

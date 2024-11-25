@@ -48,16 +48,10 @@ export class GithubService {
     public async getFile(
         repositoryId: number,
         path: string,
-        branch: string,
     ): Promise<BaseResponse> {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(repositoryId);
-        const buildCommand = `docker build \
-  --build-arg GITHUB_REPOSITORY_URL=${githubRepository.url} \
-  --build-arg FILE_PATH=${path} \
-  --build-arg BRANCH=${branch} \
-  -t ${githubRepository.id} .`;
-        const {stdout} = await execPromise(buildCommand);
+        const {stdout} = await execPromise(`docker exec container_${githubRepository.id} cat ${path}`);
         return {
             status: 200,
             message: '깃허브 파일 조회 성공',
