@@ -15,5 +15,8 @@ export default class GithubRepositoryEntity {
   thumbnailImg: string;
 
   @Column()
+  branch: string;
+
+  @Column()
   description: string;
 }

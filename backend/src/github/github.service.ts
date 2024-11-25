@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import GithubRepositoryRepository from './githubrepository.repository';
 import BaseResponse from '../support/base.response';
 import GithubRepositoryEntity from './githubrepository.entity';
@@ -12,6 +12,8 @@ import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/register
 
 @Injectable()
 export class GithubService {
+    private readonly logger = new Logger(GithubService.name);
+
     graphqlClient: GraphQLClient = new GraphQLClient(GITHUB.API_URL, {
         headers: {
             Authorization: `Bearer ${GITHUB.TOKEN}`,
@@ -66,14 +68,35 @@ export class GithubService {
     public async getTree(repositoryId: number): Promise<BaseResponse> {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(repositoryId);
-        const {stdout} = await execPromise(
-            `docker exec ${githubRepository.id} tree -J /app/repository`,
-        );
+
+        /// Docker 빌드 및 실행 명령어
+        const buildCommand = `
+    docker build \
+    --build-arg GITHUB_REPOSITORY_URL=${githubRepository.url} \
+    --build-arg BRANCH=${githubRepository.branch} \
+    -t ${githubRepository.id} .;
+
+    # 컨테이너가 이미 존재하는 경우 종료하고 삭제
+    docker stop container_${githubRepository.id};
+    docker rm container_${githubRepository.id};
+
+    # 새 컨테이너 실행
+    docker run -d --name container_${githubRepository.id} ${githubRepository.id} tail -f /dev/null
+`;
+
+
+        // 빌드 및 실행
+        await execPromise(buildCommand);
+
+        // Docker exec 명령어 실행 (bash 대신 sh 사용)
+        const { stdout, stderr } = await execPromise(`docker exec container_${githubRepository.id} sh -c "tree -J ."`);
+
+        // 성공적인 응답 반환
         return {
             status: 200,
             message: '깃허브 파일 트리 조회 성공',
             data: JSON.parse(stdout),
-        }
+        };
     }
 
     public async getById(id: number): Promise<BaseResponse> {

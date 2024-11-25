@@ -23,6 +23,7 @@ export class GithubMapper {
     static toEntity(githubrepository: RegisterGithubrepositoryDto, name: string, thumbnailImg: string){
         const entity = new GithubRepositoryEntity();
         entity.name = name;
+        entity.branch = githubrepository.branch;
         entity.description = githubrepository.description;
         entity.url = githubrepository.url;
         entity.thumbnailImg = thumbnailImg;
