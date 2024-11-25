@@ -47,7 +47,7 @@ export class GithubController {
     return this.githubService.getById(id);
   }
 
-  @Get('/:repositoryId')
+  @Get('/:repositoryId/tree')
   async getTree(@Param('repositoryId') id: number): Promise<BaseResponse> {
     return this.githubService.getTree(id);
   }
