@@ -12,8 +12,4 @@ export default class RegisterReviewDto {
   @IsNotEmpty()
   lineNumber!: number;
 
-  @IsNotEmpty()
-  @IsString()
-  description!: string;
-
 }

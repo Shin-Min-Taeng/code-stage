@@ -10,6 +10,8 @@ import {readFileSync} from 'fs';
 import {join} from 'path';
 import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/registerGithubrepository.dto";
 import GithubDirectory from "../../../shared/src/github/dto/github.tree.response.dto";
+import GithubFileResponseDto from "../../../shared/src/github/dto/github.file.response.dto";
+import GithubrepositoryResponseDto from "../../../shared/src/github/dto/githubrepository.response.dto";
 // import GithubDirectory from "../../../shared/src/github/dto/github.tree.response.dto";
 
 @Injectable()
@@ -55,10 +57,12 @@ export class GithubService {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(repositoryId);
         const {stdout} = await execPromise(`docker exec container_${githubRepository.id} cat ${path}`);
+        const response = new GithubFileResponseDto();
+        response.file = stdout.trim();
         return {
             status: 200,
             message: '깃허브 파일 조회 성공',
-            data: stdout.trim()
+            data: response
         };
     }
 
