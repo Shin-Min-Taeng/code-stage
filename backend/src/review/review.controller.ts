@@ -36,9 +36,9 @@ export class ReviewController {
     return this.reviewService.delete(reviewId);
   }
 
-  @Get()
+  @Get('/:repositoryId')
   async getByRepositoryId(
-    @Param('repository_id') id: number,
+    @Param('repositoryId') id: number,
   ): Promise<BaseResponse> {
     return this.reviewService.getByRepositoryId(id);
   }
