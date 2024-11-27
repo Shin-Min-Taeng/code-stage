@@ -9,6 +9,8 @@ import {GITHUB} from "../support/dotenv";
 import {readFileSync} from 'fs';
 import {join} from 'path';
 import RegisterGithubrepositoryDto from "../../../shared/src/github/dto/registerGithubrepository.dto";
+import GithubDirectory from "../../../shared/src/github/dto/github.tree.response.dto";
+// import GithubDirectory from "../../../shared/src/github/dto/github.tree.response.dto";
 
 @Injectable()
 export class GithubService {
@@ -36,6 +38,7 @@ export class GithubService {
         try {
             const data = await this.graphqlClient.request<GitHubRepositoryGraphqlResponse>(query, {orgName: orgName, repoName: repoName});
             await this.githubRepositoryRepository.save(GithubMapper.toEntity(dto, orgName+repoName, data.repository.owner.avatarUrl));
+
             return {
                 status: 200,
                 message: '깃허브 레포지토리 등록 성공'
@@ -63,31 +66,42 @@ export class GithubService {
         const githubRepository: GithubRepositoryEntity =
             await this.githubRepositoryRepository.getById(repositoryId);
 
-        /// Docker 빌드 및 실행 명령어
-        const buildCommand = `
-    docker build \
-    --build-arg GITHUB_REPOSITORY_URL=${githubRepository.url} \
-    --build-arg BRANCH=${githubRepository.branch} \
-    -t ${githubRepository.id} .;
+        const containerName = `container_${githubRepository.id}`;
+        const { stdout, stderr } = await execPromise(`docker exec ${containerName} sh -c "tree -J ."`);
 
-    # 컨테이너가 이미 존재하는 경우 종료하고 삭제
-    docker stop container_${githubRepository.id};
-    docker rm container_${githubRepository.id};
+        if (stderr) {
+            return {
+                status: 500,
+                message: 'Error occurred while retrieving the file tree',
+                data: null,
+            };
+        }
 
-    # 새 컨테이너 실행
-    docker run -d --name container_${githubRepository.id} ${githubRepository.id} tail -f /dev/null
-`;
-        // 빌드 및 실행
-        await execPromise(buildCommand);
+        // stdout은 JSON 문자열로 반환되므로 파싱
+        const fileTree: any[] = JSON.parse(stdout);
 
-        // Docker exec 명령어 실행 (bash 대신 sh 사용)
-        const { stdout, stderr } = await execPromise(`docker exec container_${githubRepository.id} sh -c "tree -J ."`);
+        // 파일 트리 변환 함수
+        const transformToDirectoryTree = (item: any): GithubDirectory => {
+            const directory: GithubDirectory = {
+                type: item.type === 'directory' ? 'directory' : 'file',
+                name: item.name,
+            };
 
-        // 성공적인 응답 반환
+            // 파일인 경우 contents는 없으므로, 디렉터리만 contents를 가짐
+            if (item.type === 'directory' && item.contents) {
+                directory.contents = item.contents.map(transformToDirectoryTree); // 재귀적으로 변환
+            }
+
+            return directory;
+        };
+
+        // 반환할 디렉터리 트리
+        const directoryTree: GithubDirectory[] = fileTree.map(transformToDirectoryTree);
+
         return {
             status: 200,
             message: '깃허브 파일 트리 조회 성공',
-            data: JSON.parse(stdout),
+            data: directoryTree,
         };
     }
 

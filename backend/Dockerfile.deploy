@@ -1,0 +1,35 @@
+# Node.js 이미지 선택
+FROM node:18-alpine
+
+# Docker CLI 설치를 위한 의존성 설치
+RUN apk add --no-cache \
+    curl \
+    bash \
+    git \
+    docker-cli
+
+# 작업 디렉터리 설정
+WORKDIR /app
+
+# shared 디렉터리 복사
+COPY shared /app/shared
+
+# 의존성 파일 복사
+COPY backend/package.json backend/yarn.lock /app/backend/
+
+WORKDIR /app/backend
+
+# 의존성 설치
+RUN yarn install
+
+# 디렉터리 복사
+COPY backend /app/backend
+
+# 애플리케이션 빌드
+RUN yarn build
+
+# 포트 설정
+EXPOSE 3000
+
+# 애플리케이션 실행
+CMD ["yarn", "start"]
