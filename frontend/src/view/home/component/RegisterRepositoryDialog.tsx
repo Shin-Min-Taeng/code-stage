@@ -6,7 +6,6 @@ import Button from "../../../shared/component/Button";
 import Spacer from "../../../shared/component/Spacer";
 import {useRef} from "react";
 import GithubrepositoryRepo from "../../../data/githubrepository.repo";
-import {redirect, useLocation} from "react-router-dom";
 
 interface RegisterRepositoryDialogProps {
     dismiss: () => void;
@@ -35,6 +34,7 @@ export default function RegisterRepositoryDialog(
         await GithubrepositoryRepo.register({
             url: repositoryInput.value,
             description: descriptionTextArea?.value ?? '',
+            branch: 'main' // TODO: Fix
         });
 
         // eslint-disable-next-line no-restricted-globals

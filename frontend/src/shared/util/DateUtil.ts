@@ -4,12 +4,14 @@ export default class DateUtil {
 
     static getTimeAgo(date: Date): string {
         const now = new Date();
-        const years = now.getFullYear() - date.getFullYear();
-        const months = (now.getFullYear() - date.getFullYear()) * 12 + (now.getMonth() - date.getMonth());
-        const days = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-        const minutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-
+        const validDate = new Date(date);
+        
+        const years = now.getFullYear() - validDate.getFullYear();
+        const months = (now.getFullYear() - validDate.getFullYear()) * 12 + (now.getMonth() - validDate.getMonth());
+        const days = Math.floor((now.getTime() - validDate.getTime()) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((now.getTime() - validDate.getTime()) / (1000 * 60 * 60));
+        const minutes = Math.floor((now.getTime() - validDate.getTime()) / (1000 * 60));
+        
         if (years > 0) {
             return `${years}년 전`;
         }

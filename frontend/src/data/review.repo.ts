@@ -19,11 +19,7 @@ class ReviewRepo {
     }
     
     async get(repositoryId: number): Promise<BaseResponse<ReviewResponseDto[]>> {
-        return (await customAxios.get(`${this.PATH}`, {
-            params: {
-                repository_Id: repositoryId
-            }
-        })).data;
+        return (await customAxios.get(`${this.PATH}/${repositoryId}`)).data;
     }
 }
 

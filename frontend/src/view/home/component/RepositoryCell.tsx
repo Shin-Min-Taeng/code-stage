@@ -65,6 +65,7 @@ const S = {
         display: flex;
         width: 100%;
         border-radius: 16px;
+        border: 2px solid var(--container-low);
     `,
     front: styled.div<{
         isHovering: boolean;

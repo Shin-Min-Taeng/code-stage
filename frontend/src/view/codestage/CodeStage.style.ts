@@ -7,6 +7,13 @@ const style = {
         width: 100vw;
         word-break: keep-all;
     `,
+    treeContainer: styled.div`
+        display: flex;
+        flex-direction: column;
+        width: 280px;
+        padding: 8px;
+        justify-content: stretch;
+    `,
     sidebarContainer: styled.div`
         display: flex;
         flex-direction: column;

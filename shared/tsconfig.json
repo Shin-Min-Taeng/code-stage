@@ -20,6 +20,6 @@
     "outDir": "./dist"
   },
   "include": [
-    "./src/github"
+    "./src"
   ]
 }

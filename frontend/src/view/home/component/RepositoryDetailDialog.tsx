@@ -8,12 +8,12 @@ import {HomeToCodeStage} from "../../../navigation/navigation.type";
 import {useEffect, useState} from "react";
 import ReviewResponseDto from "shared/dist/review/dto/review.response.dto";
 import reviewRepo from "../../../data/review.repo";
-import {dummyReviews} from "../../../dummy/review.response.dto.dummy";
 import ReviewCell from "../../../shared/component/ReviewCell";
 import Text, {TextFont, TextSize} from "../../../shared/component/Text";
 import Spacer from "../../../shared/component/Spacer";
 import Divider from "../../../shared/component/Divider";
 import {hideScrollBar} from "../../../css.util";
+import {Column, Row} from "../../../shared/component/FlexLayout";
 
 interface RepositoryDetailDialogProps {
     repository: GithubrepositoryResponseDto;
@@ -40,14 +40,19 @@ export default function RepositoryDetailDialog(
     return (
         <BaseDialog dismiss={dismiss}>
             <S.container>
-                <S.thumbnail src={repository.thumbnailImg}/>
-                <Spacer h={16}/>
-                <Text size={TextSize.Headline} fontWeight={700} text={repository.name}/>
+                <Row columnGap={8}>
+                    <S.thumbnail src={repository.thumbnailImg}/>
+                    <Column>
+                        <Spacer h={4}/>
+                        <Text size={TextSize.Headline} fontWeight={700} text={repository.name}/>
+                        <Spacer h={4}/>
+                        <Text size={TextSize.Large} text={repository.description} customStyle={css`
+                            color: var(--on-surface-var);
+                        `}/>
+                        <Spacer h={8}/>
+                    </Column>
+                </Row>
                 <Spacer h={4}/>
-                <Text size={TextSize.Large} text={repository.description} customStyle={css`
-                    color: var(--on-surface-var);
-                `}/>
-                <Spacer h={8}/>
                 <Button text={'코드 스테이지'} onClick={() => {
                     const state: HomeToCodeStage = {
                         id: repository.id,
@@ -60,7 +65,7 @@ export default function RepositoryDetailDialog(
                 <Text font={TextFont.Pretendard} size={TextSize.Large} fontWeight={'bolder'} text={'리뷰'}/>
                 <Spacer h={4}/>
                 <S.reviewContainer>
-                    {dummyReviews.map(review => (
+                    {reviews.map(review => (
                         <ReviewCell review={review}/>
                     ))}
                 </S.reviewContainer>
@@ -92,6 +97,7 @@ const S = {
         align-items: center;
     `,
     reviewContainer: styled.div`
+        width: 100%;
         display: flex;
         flex-direction: column;
         overflow: auto;

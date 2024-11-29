@@ -1,5 +1,4 @@
 import S from './HomePage.style';
-import {dummyRepositories} from "../../dummy/githubrepository.response.dto.dummy";
 import RepositoryCell from "./component/RepositoryCell";
 import {useEffect, useState} from "react";
 import Logo from "../../shared/component/Logo";
@@ -16,6 +15,10 @@ export default function HomePage() {
     
     const [showRegisterRepositoryDialog, setShowRegisterRepositoryDialog] = useState(false);
     const [showRepositoryDetailDialog, setShowRepositoryDetailDialog] = useState(false);
+    
+    const searchtedRepositories = repositories.filter(repository => (
+        repository.url.includes(searchText) || repository.name.includes(searchText) || repository.description.includes(searchText)
+    ))
 
     useEffect(() => {
         (async () => {
@@ -48,7 +51,7 @@ export default function HomePage() {
                     </S.navRightContainer>
                 </S.navContainer>
                 <S.content>
-                    {repositories.map(repository => (
+                    {(searchText === '' ? repositories : searchtedRepositories).map(repository => (
                         <RepositoryCell
                             key={repository.id}
                             repository={repository}
