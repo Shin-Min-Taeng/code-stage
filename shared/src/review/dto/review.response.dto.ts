@@ -10,6 +10,4 @@ export default class ReviewResponseDto {
 
     createdAt!: Date;
 
-    repositoryId!: number
-
 }

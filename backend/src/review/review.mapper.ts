@@ -20,7 +20,6 @@ export class ReviewMapper {
         response.filePath = review.filePath;
         response.lineNumber = review.lineNumber;
         response.createdAt = review.createdAt;
-        response.repositoryId = review.githubRepository.id
         return review;
     }
 
