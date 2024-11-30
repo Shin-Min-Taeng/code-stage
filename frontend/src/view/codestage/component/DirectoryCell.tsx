@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import GithubDirectory from "shared/dist/github.tree.response.dto";
+import GithubDirectory from "shared/dist/github/dto/github.tree.response.dto";
 import styled, {css} from "styled-components";
 import {ClosedDirectoryIcon, FileIcon, OpenedDirectoryIcon} from "../../../shared/component/Icons";
 

@@ -2,7 +2,7 @@ import RegisterGithubrepositoryDto from "shared/src/github/dto/registerGithubrep
 import customAxios from "./customAxios";
 import BaseResponse from "shared/dist/support/base.response";
 import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
-import GithubDirectory from "shared/dist/github.tree.response.dto";
+import GithubDirectory from "shared/dist/github/dto/github.tree.response.dto";
 import GithubFileResponseDto from "shared/dist/github/dto/github.file.response.dto";
 
 class GithubrepositoryRepo {

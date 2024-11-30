@@ -10,7 +10,7 @@ import {css} from "styled-components";
 import githubrepositoryRepo from "../../data/githubrepository.repo";
 import reviewRepo from "../../data/review.repo";
 import {HomeToCodeStage} from "../../navigation/navigation.type";
-import GithubDirectory from "shared/dist/github.tree.response.dto";
+import GithubDirectory from "shared/dist/github/dto/github.tree.response.dto";
 import DirectoryCell from "./component/DirectoryCell";
 import ReviewResponseDto from "shared/dist/review/dto/review.response.dto";
 import GithubrepositoryResponseDto from "shared/dist/github/dto/githubrepository.response.dto";
