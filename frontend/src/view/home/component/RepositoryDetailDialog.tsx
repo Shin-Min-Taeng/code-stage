@@ -35,6 +35,7 @@ export default function RepositoryDetailDialog(
             setReviews(reviews.data ?? []);
             console.log(reviews);
         })();
+// eslint-disable-next-line
     }, []);
 
     return (
