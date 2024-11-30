@@ -1,5 +1,5 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Editor} from "@monaco-editor/react";
 import S from './CodeStage.style';
 import Text, {TextSize} from "../../shared/component/Text";
@@ -72,14 +72,16 @@ export default function CodeStagePage() {
             const response = await githubrepositoryRepo.get(id);
             setRepository(response.data);
         })();
+// eslint-disable-next-line
     }, []);
 
-    const fetchReviews = async () => {
+    const fetchReviews = useCallback(async () => {
         const {id}: HomeToCodeStage = location.state;
 
         const response = await reviewRepo.get(id);
         setReviews(response.data);
-    };
+// eslint-disable-next-line
+    }, []);
 
     const registerReview = () => {
         const {id}: HomeToCodeStage = location.state;

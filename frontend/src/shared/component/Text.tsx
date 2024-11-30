@@ -1,6 +1,5 @@
 import styled, {css, CSSProperties, RuleSet} from "styled-components";
 import {HTMLAttributes} from "react";
-import {keyboard} from "@testing-library/user-event/dist/keyboard";
 
 export enum TextSize {
     Small,
