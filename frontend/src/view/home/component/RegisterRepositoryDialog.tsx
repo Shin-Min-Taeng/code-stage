@@ -36,6 +36,8 @@ export default function RegisterRepositoryDialog(
             description: descriptionTextArea?.value ?? '',
             branch: 'main' // TODO: Fix
         });
+        
+        alert('레포지토리가 등록되었어요.\n최대 5분 정도 기다려야 프로젝트를 불러올 수 있어요')
 
         // eslint-disable-next-line no-restricted-globals
         location.reload();
